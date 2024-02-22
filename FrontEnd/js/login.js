@@ -5,7 +5,15 @@ const password = document.getElementById("password");
 const form = document.getElementById("formulaire_login")
 const formulaire_p = document.querySelector(".formulaire_p");
 const submit = document.getElementById("submit")
- console.log(formulaire_p)
+
+const projet = document.querySelector(".projet")
+async function btn_projet() {
+    projet.addEventListener("click", (e) => {
+         window.location.href = "../index.html"
+    }
+)}
+btn_projet()
+
 form.addEventListener("submit", (e) => {
     e.preventDefault(); //ne pas charger la page au clique 
     const user_mail = email.value;
@@ -41,5 +49,4 @@ form.addEventListener("submit", (e) => {
         window.location.href = "../index.html"; // si c'est true redirgier vers le index.html page d'acceuil
     }) 
 })
-
 

@@ -49,17 +49,17 @@ table {
 /** end reset css**/
 body {
 	max-width: auto;
-	margin-top:100px;
+	margin-top: 60px;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 section {
-	margin: 50px 0
+	margin-top: 50px;
 }
 
 h1{
@@ -264,8 +264,8 @@ footer nav ul {
 }
 .container_modal .modal {
 	background-color: white;
-	width: 50%;
-	height: 50%;
+	width: 630px;
+	height: 670px;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
@@ -273,7 +273,7 @@ footer nav ul {
 	justify-content: space-around;
 	position: relative;
 }
-.container_modal .modal .croix {
+.croix {
 	width: 20px;
 	height: 20px;
 	position: absolute;
@@ -281,9 +281,15 @@ footer nav ul {
 	right: 20px;
 	cursor: pointer;
 }
-.container_modal .modal .croix:hover {
+.croix:hover {
 	opacity: 0.5;
 }
+
+.container_modal .modal h3 {
+	top: 50px;
+	font-size: 25px;
+}
+
 .container_modal .modal button {
 	font-family: 'Syne';
 	color: white;
@@ -293,6 +299,8 @@ footer nav ul {
 	text-align: center;
 	border-radius: 60px ;
 	cursor: pointer;
+	margin: 20px;
+	bottom: 0;
 }
 
 .container_modal .modal button:hover {
@@ -305,6 +313,7 @@ footer nav ul {
 	width: 15px;
 	margin-left: 30px;
 	margin-right: 10px;
+	display: none;
 }
 
 .projet_btn {
@@ -340,4 +349,164 @@ footer nav ul {
 
 .formulaire_p {
 	color: red;
+}
+
+.affichage_modal {
+	width: 500px;
+	height: 400px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 20px;
+}
+
+.affichage_modal figure img {
+	width: 100%;
+	height: 100%;
+}
+
+figure span {
+	position: relative;
+}
+
+figure span .svg_trash {
+	position: absolute;
+	width: 10px;
+	height: 12px;
+	background-color: black;
+	padding: 4px;
+	cursor: pointer;
+	left: 60px;
+	margin: 3px;
+}
+
+/* modal ajout d'image */
+
+.container_modal_ajout {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	background-color: #dbd8d8b7;
+	width: 100%;
+	height: 100%;
+}
+
+.container_modal_ajout .modal_ajout {
+	background-color: white;
+	width: 630px;
+	height: 670px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	position: relative;
+}
+
+.container_modal_ajout .modal_ajout h3 {
+	margin-top: 40px;
+	font-size: 25px;
+}
+.modal_ajout .arrow_back {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	cursor: pointer;
+}
+
+.modal_ajout .ajout_image {
+	background-color: #E8F1F6;
+	width: 70%;
+	height: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+.modal_ajout .ajout_image .ajouter_photo {
+	width: 80px;
+	height: 60px;
+	margin-bottom: 10px;
+}
+
+.modal_ajout p {
+	font-size: x-small;
+	margin-top: 10px;
+}
+.modal_ajout .formulaire_ajout_img {
+	width: 70%;
+	height: 30%;
+	flex-direction: column;
+	align-items: center;
+	border-bottom: #bab4b4 1px solid;
+}
+
+.formulaire_ajout_img h4 {
+	height: 20px;
+	font-size: medium;
+}
+.formulaire_ajout_img input {
+	width: 98%;
+	height: 40px;
+	margin-bottom: 20px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.formulaire_ajout_img .categorie {
+	width: 100%;
+	height: 47px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.modal_ajout .valider_ajout_img {
+	width: 210px;
+	height: 30px;
+	border-radius: 50px;
+	background-color: rgb(161, 160, 160);
+	color: white;
+	border: none;
+	font-size: small;
+	margin-bottom: 50px;
+	margin-top:  0px;
+	cursor: pointer;
+}
+
+.btn_ajouter_photo {
+    width: 170px;
+	height: 35px;
+	border: none;
+	border-radius: 40px;
+	background-color: #B9C5CC;
+	color: #306685;
+	cursor: pointer;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	font-size: small;
+}
+
+.btn_ajouter_photo:hover {
+    box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.btn_ajouter_photo input[type='file'] {
+    display: none;
+}
+
+.close {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+
+.close:hover {
+	opacity: 0.5;
 }

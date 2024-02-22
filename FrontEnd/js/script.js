@@ -30,11 +30,10 @@ async function affichage_works(works) {
 
 // Récupérer le tableau des catégories
 async function get_categorys() {
-    const response = await fetch("http://localhost:5678/api/categories");
-    return await response.json();
+    const response = await fetch ("http://localhost:5678/api/categories");
+    return response.json();
 }
 
-// Afficher les Boutons par catégories
 async function display_categorys_buttons() {
     const categorys = await get_categorys();
 
@@ -44,17 +43,38 @@ async function display_categorys_buttons() {
         btn.id = category.id;
         filters.appendChild(btn);
 
-        // Ajout d'un écouteur d'événements pour chaque bouton
         btn.addEventListener("click", async () => {
-            await filter_category(btn.id);
+            
+            const allButtons = document.querySelectorAll("button")
+            allButtons.forEach(button => {
+                button.style.backgroundColor = "" // Retirer la couleur verte de tous les boutons
+                button.style.color =""
+            })
+            
+            await filter_category(btn.id)
+            btn.style.backgroundColor = "#1D6154"
+            btn.style.color = "#FFFEF8"
         });
     });
+
+    // Ajout d'un écouteur d'événements pour le bouton supplémentaire
+    const autreBouton = document.getElementById("btn_all");
+    autreBouton.addEventListener("click", () => {
+        // Retirer la couleur verte de tous les boutons
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(button => {
+            button.style.backgroundColor = '';
+        });
+
+        // Ajoutez ici la logique que vous souhaitez exécuter lorsque le bouton supplémentaire est cliqué
+    });
 }
+
 display_categorys_buttons();
-//*****************************************//
 
 
-// Filtrer au clic sur le bouton par catégories
+
+// Filtrer au click sur le bouton par catégories
 async function filter_category(categoryId) {
     const filter_works = await get_works();
     gallery.innerHTML = ""; // Vider la galerie avant d'afficher les nouveaux éléments
@@ -71,7 +91,6 @@ async function filter_category(categoryId) {
     }
 }
 
-
 async function initialize() {
     const allWorks = await get_works();
     await affichage_works(allWorks);
@@ -87,39 +106,3 @@ async function btn_tous() {
 }
 btn_tous()
 
-// Si connexion de l'utilisateur
-
-const loged = window.sessionStorage.loged // sa pointe vers la valeur true
-const logout = document.querySelector("header nav .login_logout");
-const container_modal = document.querySelector(".container_modal");
-const croix = document.querySelector(".croix");
-const modifier_btn = document.querySelector(".modifier_btn");
-const edition_mode = document.querySelector(".edition_mode");
-
-
-const inscription = () => {
-    if (localStorage.getItem("token")) {
-        modifier_btn.textContent = "modifier"; // la balise vide admin on y ajoute un texte admin
-        logout.textContent = "logout"; // modifier login en logout
-        edition_mode.style.display = "flex"
-        logout.addEventListener ("click", ()=> {
-            window.sessionStorage.loged = false;
-        })
-    }
-}
-inscription()
-
-
-//affichage de la modal au clique sur le admin
-
-modifier_btn.addEventListener("click", () => {
-    container_modal.style.display = "flex"
-});
-
-croix.addEventListener("click", () => {
-    container_modal.style.display = "none"
-});
-
-container_modal.addEventListener("click", () => {
-    container_modal.style.display = "none"
-});
