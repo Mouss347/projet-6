@@ -16,6 +16,8 @@ async function get_works() {
 
 // Afficher les works dans le DOM
 async function affichage_works(works) {
+    gallery.textContent = ""; //ajouter
+
     works.forEach((work) => {
         const figure = document.createElement("figure");
         const img = document.createElement("img");
@@ -45,7 +47,8 @@ async function display_categorys_buttons() {
 
         btn.addEventListener("click", async () => {
             
-            const allButtons = document.querySelectorAll("button")
+            const allButtons = document.querySelectorAll("#filters button")
+            console.log(allButtons)
             allButtons.forEach(button => {
                 button.style.backgroundColor = "" // Retirer la couleur verte de tous les boutons
                 button.style.color =""
@@ -55,18 +58,6 @@ async function display_categorys_buttons() {
             btn.style.backgroundColor = "#1D6154"
             btn.style.color = "#FFFEF8"
         });
-    });
-
-    // Ajout d'un écouteur d'événements pour le bouton supplémentaire
-    const autreBouton = document.getElementById("btn_all");
-    autreBouton.addEventListener("click", () => {
-        // Retirer la couleur verte de tous les boutons
-        const allButtons = document.querySelectorAll('button');
-        allButtons.forEach(button => {
-            button.style.backgroundColor = '';
-        });
-
-        // Ajoutez ici la logique que vous souhaitez exécuter lorsque le bouton supplémentaire est cliqué
     });
 }
 
@@ -94,15 +85,20 @@ async function filter_category(categoryId) {
 async function initialize() {
     const allWorks = await get_works();
     await affichage_works(allWorks);
-}
-initialize();
 
-//afficher tous les projets au clique du btn all
-async function btn_tous() {
+    // Ajouter un gestionnaire d'événements au bouton "Tous"
     btn_all.addEventListener("click", () => {
-    gallery.innerHTML = ""
-    initialize() ;
+        gallery.innerHTML = "";
+        affichage_works(allWorks);
+        
+        // Appliquer le style au bouton "Tous"
+        const allButtons_filters = document.querySelectorAll("#filters button");
+        allButtons_filters.forEach(button => {
+            button.style.backgroundColor = ""; // Réinitialiser le style de tous les boutons
+            button.style.color = ""; // Réinitialiser la couleur du texte de tous les boutons
+        });
+        btn_all.style.backgroundColor = "#1D6154"; // Appliquer le style au bouton "Tous"
+        btn_all.style.color = "#FFFEF8"; // Changer la couleur du texte pour le bouton "Tous"
     });
 }
-btn_tous()
-
+initialize();
