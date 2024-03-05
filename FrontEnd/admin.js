@@ -71,10 +71,6 @@ btn_ajout_img.addEventListener("click", () => {
   modal_ajout.style.display = "flex"
   modal_galerie.style.display = "none"
   container_modal.style.display = "none"
-
-
-//   input_file.value = ""
-// preview_img.value = "";
 });
 
 // au clique du gris enlever le gris et la modal
@@ -99,11 +95,6 @@ close_modal_ajout.addEventListener("click", () => {
     container_modal.style.display = "none"
     // ici supprimer image et remettre a 0
 });
-
-
-
-
-
 
 
 
@@ -146,13 +137,14 @@ function delete_works() {
             .then ((response) => {
                 if (!response.ok) {
                     console.log("faux")
-                } 
-                return response.json()
+                }
             })
             .then((data) => {
                 console.log("ok", data)
                 display_works_modal()
                 delete_works()
+                affichage_works()
+                initialize()
             })
         })
     })
@@ -164,9 +156,9 @@ function delete_works() {
 
 //********************* MISE EN PLACE DE L'AFFICHAGE DE L'IMAGE CHARGEE *********************/ 
 
-input_file.addEventListener("change", () => {
-  const file = input_file.files[0]
-//   console.log(file)
+input_file.addEventListener("change", () => { //récupère le premier fichier sélectionné par l'utilisateur dans l'élément d'entrée de fichier (input_file)
+  const file = input_file.files[0] // Ce fichier est ensuite stocké dans la variable file pour être utilisé plus tard
+
   if (file) {
     const reader = new FileReader();  //syntaxe prévisualisation de l'image qui sera telecharger
     reader.onload = function (e) {
@@ -223,43 +215,34 @@ btn_valider_ajout_img.addEventListener("click", async () => {
 
       const data = await response.json();
 
-      console.log("Image ajoutée avec succès. ID du travail ajouté:", data.id);
+      console.log("Image ajoutée avec succès. ID du travail ajouté:");
 
       // Actualisation des modales et des travaux affichés
       display_works_modal();
-      display_works();
-  } catch (error) {
-      console.error("Erreur lors de l'ajout de l'image :", error);
-  }
+    
+      affichage_works()
+     } catch (error) {
+        console.error("Erreur lors de l'ajout de l'image :", error);
+    }
+    initialize()
 });
 
 //********************* VERIFICATION SI TOUT LES ELEMENTS SONT REMPLIS POUR LE POST *********************/ 
-function checkConditions() {
+async function checkConditions() {
     const categorieSelect = document.querySelector("#categorie").value;
     const titreInput = document.querySelector(".titre_form").value;
 
     // Vérifier si les trois conditions sont remplies
     if (titreInput !== "" && categorieSelect !== "" && input_file.value !== "") {
         btn_valider_ajout_img.style.backgroundColor = "#1D6154"; 
-        btn_valider_ajout_img.disabled = false 
-        // le button valider est par defaut désactiver dans le html et ici j'enleve la desactivation pour pouvoir soumettre le form si les conditions sont remplis
+        btn_valider_ajout_img.disabled = false;
     } 
 }
 
 checkConditions();
 
+
 // Écouter les événements de changement dans les champs titre et catégorie ainsi que la sélection de l'image
 document.querySelector(".titre_form").addEventListener("input", checkConditions);
 document.querySelector("#categorie").addEventListener("change", checkConditions);
 
-// function resetPreviewImage() {
-//     preview_img.src = ""; // Effacer l'URL de l'image
-//     preview_img.style.display = "none"; // Cacher l'élément d'aperçu de l'image
-//     label_file.style.display = "block"; // Afficher le label du champ de fichier
-//     input_file.style.display = "block"; // Afficher le champ de fichier
-//     icon_file.style.display = "block"; // Afficher l'icône d'ajout de photo
-//     p_file.style.display = "block"; // Afficher le paragraphe de description de l'ajout de photo
-//     box_ajout_image.style.flexDirection = "column"; // Réinitialiser la direction du conteneur
-// }
-
-// resetPreviewImage()

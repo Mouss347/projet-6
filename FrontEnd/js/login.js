@@ -5,9 +5,9 @@ const password = document.getElementById("password");
 const form = document.getElementById("formulaire_login")
 const formulaire_p = document.querySelector(".formulaire_p");
 const submit = document.getElementById("submit")
-
 const projet = document.querySelector(".projet")
-async function btn_projet() {
+
+async function btn_projet() {  //fonction au clique de projet redirige vers le html
     projet.addEventListener("click", (e) => {
          window.location.href = "../index.html"
     }
@@ -22,7 +22,7 @@ form.addEventListener("submit", (e) => {
         email: user_mail,
         password: user_password
     };
-    console.log(user_password, user_mail)
+    // console.log(user_password, user_mail)
     const user = JSON.stringify(login); 
 
     //Envoi de la requette

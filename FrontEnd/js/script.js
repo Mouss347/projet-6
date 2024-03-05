@@ -17,8 +17,8 @@ async function get_works() {
 // Afficher les works dans le DOM
 async function affichage_works(works) {
     gallery.textContent = ""; //ajouter
-
-    works.forEach((work) => {
+console.log(works)
+    await works.forEach((work) => {
         const figure = document.createElement("figure");
         const img = document.createElement("img");
         const figcaption = document.createElement("figcaption");
@@ -36,7 +36,7 @@ async function get_categorys() {
     return response.json();
 }
 
-async function display_categorys_buttons() {
+async function display_categorys_buttons() {  //fonction pour pour crée des bouttons pour les categories, ajout d'ecouteur d'evenement pour filtrer les element selectionner en fonction de leur catégroies et si selectionner alors on change l'etat du btn
     const categorys = await get_categorys();
 
     categorys.forEach((category) => {
@@ -48,7 +48,7 @@ async function display_categorys_buttons() {
         btn.addEventListener("click", async () => {
             
             const allButtons = document.querySelectorAll("#filters button")
-            console.log(allButtons)
+            // console.log(allButtons)
             allButtons.forEach(button => {
                 button.style.backgroundColor = "" // Retirer la couleur verte de tous les boutons
                 button.style.color =""
@@ -82,7 +82,7 @@ async function filter_category(categoryId) {
     }
 }
 
-async function initialize() {
+async function initialize() {  //fonction pour récuperer les oeuvres, les afficher dans l'interface utilisateur, configuration du btn tous 
     const allWorks = await get_works();
     await affichage_works(allWorks);
 
