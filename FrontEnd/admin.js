@@ -3,7 +3,7 @@
 const loged = window.sessionStorage.loged === true // sa pointe vers la valeur true
 const logout = document.querySelector("header nav .login_logout");
 
-const close_modal_galerie = document.getElementById("#close_modal_galerie")
+const close_modal_galerie = document.getElementById("close_modal_galerie")
 const container_modal = document.querySelector(".container_modal");
 const modal_galerie = document.querySelector(".modal");
 
@@ -14,7 +14,7 @@ const affichage_modal = document.querySelector(".affichage_modal");
 const btn_ajout_img = document.querySelector(".btn_ajouter_img")
 const filter = document.getElementById("filters")
 
-const close_modal_ajout = document.getElementById("#close_modal_ajout")
+const close_modal_ajout = document.getElementById("close_modal_ajout")
 const container_modal_ajout = document.querySelector(".container_modal_ajout")
 const arrow_back = document.querySelector(".arrow_back")
 const modal_ajout = document.querySelector(".modal_ajout")
@@ -123,31 +123,34 @@ async function display_works_modal() {
 display_works_modal()
 
 //********************* SUPPRESSION DE L'IMAGE DANS LA MODAL *********************/ 
-function delete_works() {
+async function delete_works() {
     const trash_all = document.querySelectorAll(".svg_trash")
     trash_all.forEach(trash => {
-        trash.addEventListener("click", (e)=> {
+        trash.addEventListener("click", async (e)=> {
             const id = trash.id
             const init ={
                 method: "DELETE",
                 headers: {"Access-Control-Allow-Origin": "*",
-                Authorization: "Bearer " + localStorage.getItem("token")}
+                Authorization: "Bearer " + localStorage.getItem("token")
             }
-            fetch("http://localhost:5678/api/works/" + id,init)
-            .then ((response) => {
+        }
+
+        try {
+            const response = await fetch("http://localhost:5678/api/works/" + id,init)
                 if (!response.ok) {
                     console.log("faux")
-                }
-            })
-            .then((data) => {
-                console.log("ok", data)
+                    return // si la reponse n'est pas bonne alor elle arret le script
+            }
                 display_works_modal()
                 delete_works()
-                affichage_works()
+                const works = await get_works()
+                affichage_works(works)
                 initialize()
-            })
-        })
-    })
+            } catch (error) {
+                console.log("une erreur est survenue", error)
+            }
+        });
+    });
 }
 
 
@@ -219,8 +222,8 @@ btn_valider_ajout_img.addEventListener("click", async () => {
 
       // Actualisation des modales et des travaux affichés
       display_works_modal();
-    
-      affichage_works()
+      const works = await get_works()
+      affichage_works(works)
      } catch (error) {
         console.error("Erreur lors de l'ajout de l'image :", error);
     }

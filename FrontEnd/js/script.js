@@ -4,9 +4,7 @@ const portfolio = document.getElementById("portfolio");
 const filters = document.getElementById("filters");
 const btn_all = document.getElementById("btn_all");
 
-
 //*****************************************//
-
 
 // Fonction pour récupérer les works
 async function get_works() {
@@ -16,7 +14,7 @@ async function get_works() {
 
 // Afficher les works dans le DOM
 async function affichage_works(works) {
-    gallery.textContent = ""; //ajouter
+    gallery.textContent = ""; //effacer tout le texte de la galerie
 console.log(works)
     await works.forEach((work) => {
         const figure = document.createElement("figure");
@@ -47,8 +45,7 @@ async function display_categorys_buttons() {  //fonction pour pour crée des bou
 
         btn.addEventListener("click", async () => {
             
-            const allButtons = document.querySelectorAll("#filters button")
-            // console.log(allButtons)
+            const allButtons = document.querySelectorAll("#filters button") // on récupere tout les bouttons des filters et on les met dans cette variable pour leur applique cette fonction
             allButtons.forEach(button => {
                 button.style.backgroundColor = "" // Retirer la couleur verte de tous les boutons
                 button.style.color =""
