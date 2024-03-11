@@ -15,7 +15,7 @@ async function get_works() {
 // Afficher les works dans le DOM
 async function affichage_works(works) {
     gallery.textContent = ""; //effacer tout le texte de la galerie
-console.log(works)
+// console.log(works)
     await works.forEach((work) => {
         const figure = document.createElement("figure");
         const img = document.createElement("img");
